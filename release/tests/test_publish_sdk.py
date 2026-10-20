@@ -9,11 +9,28 @@ import unittest
 from unittest.mock import patch
 
 
+def projection_lock_fixture():
+    dependencies = {}
+    for product, repository in [("SpatialPipe", "SpatialPipe"), ("SpatialPipeScene", "SpatialPipe"), ("ForgePipe", "forgepipe")]:
+        source_sha = "a" * 40 if product != "ForgePipe" else "b" * 40
+        dependencies[product] = {
+            "version": "0.1.0",
+            "url": "https://github.com/Dockpipe-Industries/dockpipe/releases/download/sdk-" + source_sha + "/sdk.tar.gz",
+            "sha256": "c" * 64,
+            "source_repository": "Dockpipe-Industries/" + repository,
+            "source_sha": source_sha,
+        }
+    return dependencies, {"name": "projection-dependencies.lock.json", "sha256": "d" * 64}
+
+
 def load_publisher(name):
     path = Path(__file__).resolve().parents[1] / ("publish-" + name + "-sdk.py")
     specification = importlib.util.spec_from_file_location(name, path)
     module = importlib.util.module_from_spec(specification)
     specification.loader.exec_module(module)
+    if name == "projection":
+        # Producer guard tests remain offline and do not require Projection admission.
+        module.read_projection_lock = projection_lock_fixture
     return module
 
 
@@ -86,7 +103,7 @@ class CandidatePublisherTests(unittest.TestCase):
 
     def test_projection_lock_rejects_missing_source_and_mismatched_runtime(self):
         from projection_dependencies import read_projection_lock
-        dependencies, _ = read_projection_lock()
+        dependencies, _ = projection_lock_fixture()
         for changed_field in ["source_sha", "sha256", "source_repository"]:
             with self.subTest(field=changed_field), tempfile.TemporaryDirectory() as temporary:
                 lock = {"schema": 1, "qt_version": "6.10.3", "platform": "linux-amd64",

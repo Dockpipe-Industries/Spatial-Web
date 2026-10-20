@@ -39,3 +39,10 @@ qualified artifacts; SDK archives are not self-contained application installers.
 Native application packaging and catalog installation/update/disable/removal/
 rollback remain downstream gates. Licenses and runtime attribution remain attached
 to the corresponding distributed artifact.
+
+Projection `sdk-release.json` embeds the exact lock entries in `dependencies` and
+the committed lock filename/SHA-256 in `dependency_lock`. Publication compares
+both with the accepted source commit. Consumers must compare the Scene source
+and archive identities with their Scene pin before linking the static Projection
+library. Browser binaries inside the Projection archive share its owning source
+SHA; a separate Browser candidate must come from that same accepted commit.
