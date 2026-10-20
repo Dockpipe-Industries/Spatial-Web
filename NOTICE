@@ -1,0 +1,12 @@
+Spatial-Web browser and spatial-content SDK candidate
+
+Contains browser, bounded web models/discovery/media and illustrative model source derived from Dockpipe:
+https://github.com/Dockpipe-Industries/dockpipe
+
+The original source is licensed under Apache License 2.0 (LICENSE).
+Exact admitted file origins, hashes and compatibility adaptations are recorded
+in extraction-provenance.json. No original source is retired by this checkpoint.
+
+Qt, Qt WebEngine and Chromium runtime redistribution retains its own licensing
+and attribution obligations. This source checkpoint does not redistribute those
+runtime binaries or change their terms.

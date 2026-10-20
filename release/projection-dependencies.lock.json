@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "qt_version": "6.10.3",
+  "platform": "linux-amd64",
+  "dependencies": {
+    "SpatialPipe": {
+      "version": "0.1.0",
+      "url": "https://github.com/Dockpipe-Industries/dockpipe/releases/download/spatialpipe-scene-sdk-0.1.0-staging.0133fa151d402bc5a660b1f4acba4d296fb0cddc.39448269765.1/SpatialPipeScene-SDK-0.1.0-Linux.tar.gz",
+      "sha256": "05b565eafbb6a184ef14f097b0c1b44294dbb912c4563aa9ddc62a5972ede2bf",
+      "source_repository": "Dockpipe-Industries/SpatialPipe",
+      "source_sha": "0133fa151d402bc5a660b1f4acba4d296fb0cddc",
+      "public_mirror_target": "314761e9e6f08a63268caf4cbd29dded68c11aa3"
+    },
+    "SpatialPipeScene": {
+      "version": "0.1.0",
+      "url": "https://github.com/Dockpipe-Industries/dockpipe/releases/download/spatialpipe-scene-sdk-0.1.0-staging.0133fa151d402bc5a660b1f4acba4d296fb0cddc.39448269765.1/SpatialPipeScene-SDK-0.1.0-Linux.tar.gz",
+      "sha256": "05b565eafbb6a184ef14f097b0c1b44294dbb912c4563aa9ddc62a5972ede2bf",
+      "source_repository": "Dockpipe-Industries/SpatialPipe",
+      "source_sha": "0133fa151d402bc5a660b1f4acba4d296fb0cddc",
+      "public_mirror_target": "314761e9e6f08a63268caf4cbd29dded68c11aa3"
+    },
+    "ForgePipe": {
+      "version": "0.1.0",
+      "url": "https://github.com/Dockpipe-Industries/dockpipe/releases/download/forgepipe-sdk-0.1.0-staging.49cbfc7dbc37/ForgePipe-SDK-0.1.0-Linux.tar.gz",
+      "sha256": "1f62113e954737b25f07d4a7c3d6cb52c578fb61b633861ca1ea5e6ae95e96d8",
+      "source_repository": "Dockpipe-Industries/forgepipe",
+      "source_sha": "49cbfc7dbc37e65854464666245fadbf06732012"
+    }
+  }
+}

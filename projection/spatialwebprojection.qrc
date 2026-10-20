@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="/web"><file alias="extract.js">assets/extract.js</file></qresource>
+  <qresource prefix="/spatialweb/neural">
+    <file alias="worker.py">assets/neural/worker.py</file>
+    <file alias="install.py">assets/neural/install.py</file>
+    <file alias="models.json">assets/neural/models.json</file>
+  </qresource>
+</RCC>
