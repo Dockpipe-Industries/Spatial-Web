@@ -11,6 +11,7 @@
 #include <QCheckBox>
 #include <QElapsedTimer>
 #include <QFileDialog>
+#include <QFileSystemModel>
 #include <QFile>
 #include <QLabel>
 #include <QMessageBox>
@@ -308,21 +309,78 @@ static int runBrowserChecks()
         const QString savedFile = downloads.filePath("saved.html");
         downloadRequested = false;
         observeSavedDownload = true;
+        QPointer<QFileDialog> activeSaveDialog;
+        bool saveDirectoryLoaded = false;
+        bool saveFileSelected = false;
+        QString dialogDirectory;
+        QStringList dialogSelection;
+        QTimer saveDialogDeadline;
+        saveDialogDeadline.setSingleShot(true);
+        QObject::connect(&saveDialogDeadline, &QTimer::timeout, &browser, [&]() {
+            if (activeSaveDialog)
+                activeSaveDialog->reject();
+        });
         QTimer acceptSaveDialog;
         acceptSaveDialog.setInterval(20);
         QObject::connect(&acceptSaveDialog, &QTimer::timeout, &browser, [&]() {
-            if (auto *dialog = browser.findChild<QFileDialog *>()) {
-                dialog->selectFile(savedFile);
-                QMetaObject::invokeMethod(dialog, "accept", Qt::DirectConnection);
+            auto *dialog = browser.findChild<QFileDialog *>();
+            if (!dialog || !dialog->isVisible())
+                return;
+            if (!activeSaveDialog) {
+                activeSaveDialog = dialog;
+                auto *filesystem = dialog->findChild<QFileSystemModel *>();
+                if (!filesystem)
+                    return;
+                QObject::connect(filesystem, &QFileSystemModel::directoryLoaded, dialog,
+                    [&](const QString &directory) {
+                        if (QDir::cleanPath(directory) == QDir::cleanPath(downloads.path()))
+                            saveDirectoryLoaded = true;
+                    });
+                // QFileDialog changes directories through an asynchronous model.
+                // Select the filename only after the requested directory is loaded.
+                dialog->setDirectory(downloads.path());
+                return;
             }
+            dialogDirectory = dialog->directory().absolutePath();
+            dialogSelection = dialog->selectedFiles();
+            if (!saveDirectoryLoaded || QDir::cleanPath(dialogDirectory) != QDir::cleanPath(downloads.path()))
+                return;
+            if (!saveFileSelected) {
+                auto *fileName = dialog->findChild<QLineEdit *>("fileNameEdit");
+                if (!fileName)
+                    return;
+                fileName->setFocus();
+                fileName->selectAll();
+                QTest::keyClicks(fileName, QFileInfo(savedFile).fileName());
+                saveFileSelected = true;
+                return;
+            }
+            if (dialogSelection != QStringList{savedFile})
+                return;
+            acceptSaveDialog.stop();
+            QMetaObject::invokeMethod(dialog, "accept", Qt::DirectConnection);
         });
+        saveDialogDeadline.start(10000);
         acceptSaveDialog.start();
         view->page()->download(first, "browser-test.html");
-        CHECK_BROWSER(waitUntil([&]() { return downloadRequested && savedDownloadFinished; }));
+        const bool savedDownloadCompleted = waitUntil([&]() {
+            return downloadRequested && savedDownloadFinished;
+        });
         acceptSaveDialog.stop();
+        saveDialogDeadline.stop();
         observeSavedDownload = false;
+        const bool savedAtRequestedPath = QDir::cleanPath(savedDownloadPath) == QDir::cleanPath(savedFile);
+        if (!savedDownloadCompleted || savedDownloadState != QWebEngineDownloadRequest::DownloadCompleted
+            || !savedAtRequestedPath) {
+            std::fprintf(stderr, "Save download: requested=%s actual=%s state=%d finished=%d "
+                "directoryLoaded=%d dialogDirectory=%s selected=%s\n",
+                qPrintable(savedFile), qPrintable(savedDownloadPath), int(savedDownloadState),
+                savedDownloadFinished, saveDirectoryLoaded, qPrintable(dialogDirectory),
+                qPrintable(dialogSelection.join(" | ")));
+        }
+        CHECK_BROWSER(savedDownloadCompleted);
         CHECK_BROWSER(savedDownloadState == QWebEngineDownloadRequest::DownloadCompleted);
-        CHECK_BROWSER(QDir::cleanPath(savedDownloadPath) == QDir::cleanPath(savedFile));
+        CHECK_BROWSER(savedAtRequestedPath);
         QFile downloaded(savedDownloadPath);
         CHECK_BROWSER(downloaded.open(QIODevice::ReadOnly));
         CHECK_BROWSER(downloaded.readAll().contains("Browser test page"));
