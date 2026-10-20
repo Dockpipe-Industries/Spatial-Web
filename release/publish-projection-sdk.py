@@ -8,6 +8,8 @@ from pathlib import Path
 import re
 import subprocess
 
+from projection_dependencies import read_projection_lock
+
 
 REPOSITORY = "Dockpipe-Industries/Spatial-Web"
 PLATFORMS = {"linux-amd64"}
@@ -67,6 +69,9 @@ def validate(directory, source_sha):
             raise ValueError("SDK compiler and C++ ABI identity are required")
         if any(metadata.get(key) != value for key, value in required.items()):
             raise ValueError("SDK source and ABI identity differ from the publishing run")
+        dependencies, dependency_lock = read_projection_lock()
+        if metadata.get("dependencies") != dependencies or metadata.get("dependency_lock") != dependency_lock:
+            raise ValueError("Projection dependency source and artifact identities differ from the committed lock")
         archive_name = stem + ".tar.gz"
         archive = metadata.get("archive", {})
         if (archive.get("name") != archive_name
