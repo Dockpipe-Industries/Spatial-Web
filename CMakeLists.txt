@@ -8,7 +8,27 @@ include(CTest)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
-find_package(Qt6 6.10.3 EXACT REQUIRED COMPONENTS Widgets WebEngineWidgets PrintSupport Network)
+set(SPATIAL_WEB_ABI_PROFILE "native" CACHE STRING "Qualified Browser binary ABI profile")
+set_property(CACHE SPATIAL_WEB_ABI_PROFILE PROPERTY STRINGS native flatpak-kde-6.10)
+if(SPATIAL_WEB_ABI_PROFILE STREQUAL "native")
+    find_package(Qt6 6.10.3 EXACT REQUIRED COMPONENTS Widgets WebEngineWidgets PrintSupport Network)
+    set(browser_package SpatialWebBrowser)
+elseif(SPATIAL_WEB_ABI_PROFILE STREQUAL "flatpak-kde-6.10")
+    if(NOT CMAKE_SYSTEM_NAME STREQUAL "Linux" OR NOT CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)$")
+        message(FATAL_ERROR "The qualified Flatpak Browser profile is Linux x86_64 only")
+    endif()
+    foreach(component IN ITEMS Core Gui Widgets Network PrintSupport)
+        find_package(Qt6${component} 6.10.3 EXACT REQUIRED CONFIG)
+    endforeach()
+    foreach(component IN ITEMS WebEngineCore WebEngineWidgets)
+        find_package(Qt6${component} 6.10.2 EXACT REQUIRED CONFIG)
+    endforeach()
+    set(browser_package SpatialWebFlatpakBrowser)
+    set(SPATIAL_WEB_BUILD_COMPOSITION OFF CACHE BOOL "Flatpak Browser has no spatial dependencies" FORCE)
+    set(SPATIAL_WEB_BUILD_PROJECTION OFF CACHE BOOL "Flatpak Browser has no spatial dependencies" FORCE)
+else()
+    message(FATAL_ERROR "Unknown Spatial-Web ABI profile: ${SPATIAL_WEB_ABI_PROFILE}")
+endif()
 
 set(browser_headers
     BrowserWidget BrowserTabBar BrowserRuntime BrowserPreferences BrowserLinkRouter
@@ -49,20 +69,27 @@ install(FILES ${public_headers}
     "${CMAKE_CURRENT_BINARY_DIR}/include/SpatialWeb/Browser/SpatialWebBrowserExport.h"
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/SpatialWeb/Browser)
 install(EXPORT SpatialWebBrowserTargets NAMESPACE SpatialWeb::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/SpatialWebBrowser)
-configure_package_config_file(cmake/SpatialWebBrowserConfig.cmake.in
-    "${CMAKE_CURRENT_BINARY_DIR}/SpatialWebBrowserConfig.cmake"
-    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/SpatialWebBrowser)
-write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/SpatialWebBrowserConfigVersion.cmake"
+    FILE ${browser_package}Targets.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${browser_package})
+configure_package_config_file(cmake/${browser_package}Config.cmake.in
+    "${CMAKE_CURRENT_BINARY_DIR}/${browser_package}Config.cmake"
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${browser_package})
+write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/${browser_package}ConfigVersion.cmake"
     VERSION ${PROJECT_VERSION} COMPATIBILITY ExactVersion)
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/SpatialWebBrowserConfig.cmake"
-    "${CMAKE_CURRENT_BINARY_DIR}/SpatialWebBrowserConfigVersion.cmake"
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/SpatialWebBrowser)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${browser_package}Config.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/${browser_package}ConfigVersion.cmake"
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${browser_package})
 install(FILES LICENSE NOTICE extraction-provenance.json docs/browser-extraction.md docs/composition-boundary.md
     DESTINATION ${CMAKE_INSTALL_DATADIR}/SpatialWebBrowser)
 
 if(BUILD_TESTING)
-    find_package(Qt6 REQUIRED COMPONENTS Test)
+    if(SPATIAL_WEB_ABI_PROFILE STREQUAL "flatpak-kde-6.10")
+        find_package(Qt6Test 6.10.3 EXACT REQUIRED CONFIG)
+        add_executable(FlatpakBrowserRuntimeTest tests/FlatpakBrowserRuntimeTest.cpp)
+        target_link_libraries(FlatpakBrowserRuntimeTest PRIVATE SpatialWeb::Browser)
+    else()
+        find_package(Qt6 REQUIRED COMPONENTS Test)
+    endif()
     foreach(test IN ITEMS Browser BrowserExtensionCrx BrowserExtensionPackage BrowserExtensionStore BrowserHostServices)
         add_executable(${test}Test tests/${test}Test.cpp)
         target_link_libraries(${test}Test PRIVATE SpatialWeb::Browser Qt6::Test)
