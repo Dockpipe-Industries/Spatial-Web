@@ -3,6 +3,8 @@ import json
 import os
 from pathlib import Path
 import tempfile
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import unittest
 from unittest.mock import patch
 
@@ -41,6 +43,8 @@ class CandidatePublisherTests(unittest.TestCase):
                 "file_manifest": {"name": inventory.name, "sha256": module.digest(inventory)},
                 "checks": ["sdk-component-install", "focused-browser-tests", "relocated-external-consumer-compile-link-run"],
             }
+            if len(module.PLATFORMS) == 1:
+                metadata["dependencies"], metadata["dependency_lock"] = module.read_projection_lock()
             (directory / ("sdk-release.json" if len(module.PLATFORMS) == 1 else stem + ".release.json")).write_text(json.dumps(metadata))
 
     def test_complete_binary_matrix_and_projection_acceptance(self):
@@ -57,6 +61,41 @@ class CandidatePublisherTests(unittest.TestCase):
                 archive.write_bytes(b"tampered")
                 with self.assertRaises(ValueError):
                     module.validate(directory, self.source_sha)
+
+    def test_projection_rejects_changed_transitive_dependency(self):
+        module = load_publisher("projection")
+        for field in ["sha256", "source_sha", "url"]:
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as temporary:
+                directory = Path(temporary)
+                self.fixture(module, directory)
+                receipt = directory / "sdk-release.json"
+                metadata = json.loads(receipt.read_text())
+                metadata["dependencies"]["SpatialPipeScene"][field] = "changed"
+                receipt.write_text(json.dumps(metadata))
+                with self.assertRaises(ValueError):
+                    module.validate(directory, self.source_sha)
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            self.fixture(module, directory)
+            receipt = directory / "sdk-release.json"
+            metadata = json.loads(receipt.read_text())
+            metadata["dependency_lock"]["sha256"] = "b" * 64
+            receipt.write_text(json.dumps(metadata))
+            with self.assertRaises(ValueError):
+                module.validate(directory, self.source_sha)
+
+    def test_projection_lock_rejects_missing_source_and_mismatched_runtime(self):
+        from projection_dependencies import read_projection_lock
+        dependencies, _ = read_projection_lock()
+        for changed_field in ["source_sha", "sha256", "source_repository"]:
+            with self.subTest(field=changed_field), tempfile.TemporaryDirectory() as temporary:
+                lock = {"schema": 1, "qt_version": "6.10.3", "platform": "linux-amd64",
+                    "dependencies": json.loads(json.dumps(dependencies))}
+                lock["dependencies"]["SpatialPipeScene"][changed_field] = "invalid"
+                path = Path(temporary) / "projection-dependencies.lock.json"
+                path.write_text(json.dumps(lock))
+                with self.assertRaises(ValueError):
+                    read_projection_lock(path)
 
     def test_missing_platform_and_static_windows_runtime_rejected(self):
         module = load_publisher("browser")

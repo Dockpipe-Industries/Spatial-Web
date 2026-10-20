@@ -102,6 +102,9 @@ def pack(sdk, output, variant, platform, source_sha, build_directory):
         "archive": {"name": archive.name, "size_bytes": archive.stat().st_size, "sha256": digest(archive)},
         "file_manifest": {"name": inventory.name, "sha256": digest(inventory)},
         "checks": ["sdk-component-install", "relocated-external-consumer-compile-link", "focused-browser-tests", "relocated-external-consumer-compile-link-run"]}
+    if variant == "projection":
+        from projection_dependencies import read_projection_lock
+        metadata["dependencies"], metadata["dependency_lock"] = read_projection_lock()
     (output / ("sdk-release.json" if variant == "projection" else stem + ".release.json")).write_text(json.dumps(metadata, indent=2) + "\n")
 
 

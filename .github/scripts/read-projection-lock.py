@@ -4,29 +4,19 @@ import argparse
 import json
 import os
 from pathlib import Path
-import re
-from urllib.parse import urlsplit
+
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "release"))
+from projection_dependencies import read_projection_lock
 
 
 def read_lock(path):
-    if path.stat().st_size > 64 << 10:
-        raise ValueError("Projection dependency lock exceeds 64 KiB")
-    lock = json.loads(path.read_text())
-    if lock.get("schema") != 1 or lock.get("qt_version") != "6.10.3" or lock.get("platform") != "linux-amd64":
-        raise ValueError("Projection lock must bind the qualified Linux amd64 Qt ABI")
-    dependencies = lock.get("dependencies", {})
-    if set(dependencies) != {"SpatialPipe", "SpatialPipeScene", "ForgePipe"}:
-        raise ValueError("Projection requires exactly the installed runtime, scene and engine SDKs")
+    dependencies, _ = read_projection_lock(path)
     environment = {}
     for product, prefix in [("SpatialPipe", "SPATIALPIPE"), ("SpatialPipeScene", "SCENE"), ("ForgePipe", "FORGEPIPE")]:
-        entry = dependencies[product]
-        url = urlsplit(entry["url"])
-        if (entry.get("version") != "0.1.0" or url.scheme != "https" or url.netloc != "github.com"
-                or "/releases/download/" not in url.path or url.query or url.fragment
-                or not re.fullmatch(r"[0-9a-f]{64}", entry.get("sha256", ""))):
-            raise ValueError("Dependency must identify an exact public release archive and SHA-256")
-        environment[prefix + "_URL"] = entry["url"]
-        environment[prefix + "_SHA256"] = entry["sha256"]
+        environment[prefix + "_URL"] = dependencies[product]["url"]
+        environment[prefix + "_SHA256"] = dependencies[product]["sha256"]
     return environment
 
 
