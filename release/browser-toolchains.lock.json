@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "version": "0.6.11",
+  "qt_version": "6.10.3",
+  "aqt_version": "3.3.0",
+  "platforms": {
+    "linux-amd64": {
+      "url": "https://github.com/Dockpipe-Industries/dockpipe/releases/download/v0.6.11/dockpipe_0.6.11_linux_amd64.tar.gz",
+      "sha256": "b35f69eaf015e8e6afa024cc05982425b1a49ea40bd2e96c76570b4760665159",
+      "format": "tar.gz"
+    },
+    "linux-arm64": {
+      "url": "https://github.com/Dockpipe-Industries/dockpipe/releases/download/v0.6.11/dockpipe_0.6.11_linux_arm64.tar.gz",
+      "sha256": "0cd64be5f002544575317233c78a4a884d46bef4935cbc8320eb078ab6b870c0",
+      "format": "tar.gz"
+    },
+    "darwin-amd64": {
+      "url": "https://github.com/Dockpipe-Industries/dockpipe/releases/download/v0.6.11/dockpipe_0.6.11_darwin_amd64.tar.gz",
+      "sha256": "6b7be6069824e99937ba0094a0e928cd414a99341a9905e44d2e18d9daa23639",
+      "format": "tar.gz"
+    },
+    "darwin-arm64": {
+      "url": "https://github.com/Dockpipe-Industries/dockpipe/releases/download/v0.6.11/dockpipe_0.6.11_darwin_arm64.tar.gz",
+      "sha256": "dfbc247254f0e7b11c9d1331911f93fb981f1a7c9355ffc6fede63dcf92b75d5",
+      "format": "tar.gz"
+    },
+    "windows-amd64": {
+      "url": "https://github.com/Dockpipe-Industries/dockpipe/releases/download/v0.6.11/dockpipe_0.6.11_windows_amd64.zip",
+      "sha256": "ef02a7ff47ecb65ae26f7abb7b8134b7525511d17c05207d5b09c7cb88271925",
+      "format": "zip"
+    }
+  }
+}
