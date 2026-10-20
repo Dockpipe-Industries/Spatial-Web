@@ -34,3 +34,7 @@ The SDK archive contains Spatial-Web headers and library, without Qt or Flatpak
 runtimes. `flatpak-browser-sdk.yml` attests all three platform-prefixed assets;
 publication is an explicit dispatch from accepted `dev`, never a pull request.
 Local proof receipts cannot pass the immutable candidate publisher.
+
+The isolated runtime qualification additionally pins a Mesa software driver in
+`release/flatpak-proof-driver.lock.json` and records the actual llvmpipe renderer.
+This is a reproducible test input, separate from the SDK Qt/C++ ABI contract.

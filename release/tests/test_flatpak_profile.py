@@ -1,4 +1,7 @@
 import copy
+import contextlib
+import io
+import subprocess
 import importlib.util
 import json
 from pathlib import Path
@@ -9,7 +12,7 @@ from unittest.mock import patch
 
 RELEASE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RELEASE))
-from flatpak_profile import CHECKS, read_stack
+from flatpak_profile import CHECKS, read_stack, read_proof_driver
 
 
 class FlatpakProfileTest(unittest.TestCase):
@@ -39,6 +42,31 @@ class FlatpakProfileTest(unittest.TestCase):
             stack['flatpak'][key]['commit'] = 'latest'
             with self.subTest(key=key), self.assertRaises(ValueError):
                 self.admit(stack)
+
+    def test_failed_runtime_command_preserves_captured_diagnostic(self):
+        path = RELEASE.parent / '.github/scripts/build-flatpak-browser-sdk.py'
+        specification = importlib.util.spec_from_file_location('flatpak_builder', path)
+        builder = importlib.util.module_from_spec(specification)
+        specification.loader.exec_module(builder)
+        diagnostic = io.StringIO()
+        with contextlib.redirect_stdout(diagnostic), self.assertRaises(subprocess.CalledProcessError):
+            builder.run([sys.executable, '-c', "print('runtime-abort-diagnostic'); raise SystemExit(17)"], capture=True)
+        self.assertIn('runtime-abort-diagnostic', diagnostic.getvalue())
+
+    def test_qualification_driver_is_separate_and_immutable(self):
+        driver = read_proof_driver()
+        self.assertNotIn('qualification_driver', self.stack['flatpak'])
+        self.assertEqual(driver['ref'], 'runtime/org.freedesktop.Platform.GL.default/x86_64/25.08')
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / 'driver.json'
+            path.write_text(json.dumps({
+                'schema': 1,
+                'purpose': 'qualification-only-software-renderer',
+                'ref': driver['ref'],
+                'commit': 'latest',
+            }))
+            with self.assertRaises(ValueError):
+                read_proof_driver(path)
 
     def test_flatpak_publisher_requires_committed_source_and_runtime_proof(self):
         specification = importlib.util.spec_from_file_location('flatpak_publisher', RELEASE / 'publish-flatpak-browser-sdk.py')
