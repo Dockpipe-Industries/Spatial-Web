@@ -57,7 +57,7 @@ jobs:
           sudo apt-get update
           audio_package=libasound2
           if [[ "${{ matrix.platform }}" == linux-arm64 ]]; then audio_package=libasound2t64; fi
-          sudo apt-get install -y build-essential cmake ninja-build python3-venv libgl1-mesa-dev libegl1-mesa-dev libxkbcommon-dev libxkbcommon-x11-0 libxcb-cursor0 libnss3 "$audio_package"
+          sudo apt-get install -y build-essential cmake ninja-build python3-venv libgl1-mesa-dev libegl1-mesa-dev libxkbcommon-dev libxkbcommon-x11-0 libxcb-cursor0 libnss3 libopus0 libminizip1 "$audio_package"
       - name: Bootstrap committed native Dockpipe pin
         shell: bash
         run: ${{ matrix.python }} .github/scripts/bootstrap-browser-cli.py
