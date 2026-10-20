@@ -1,5 +1,7 @@
 name: Qualify pinned SDK candidate
 on:
+  pull_request:
+    branches: [dev]
   workflow_dispatch:
     inputs:
       publish:
@@ -10,7 +12,7 @@ permissions:
   contents: read
 jobs:
   dependency-admission:
-    name: Projection admission (pending until exact public lock exists)
+    name: Projection dependency admission
     runs-on: ubuntu-22.04
     outputs:
       ready: ${{ steps.lock.outputs.ready }}
@@ -34,7 +36,7 @@ jobs:
         run: >-
           sudo apt-get update && sudo apt-get install -y
           build-essential cmake ninja-build python3-venv libgl1-mesa-dev libegl1-mesa-dev
-          libnss3 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libasound2
+          libnss3 libxkbcommon-dev libxkbcommon-x11-0 libxcb-cursor0 libxcomposite1 libxdamage1 libxrandr2 libasound2 libopus0 libminizip1
       - name: Bootstrap pinned Dockpipe
         run: bash .github/scripts/bootstrap-dockpipe.sh
       - name: Read admitted exact public dependency lock
@@ -47,7 +49,7 @@ jobs:
           python3 .github/scripts/fetch-candidate-sdk.py "$SPATIALPIPE_URL" "$SPATIALPIPE_SHA256" "$RUNNER_TEMP/sdk/spatialpipe"
           python3 .github/scripts/fetch-candidate-sdk.py "$FORGEPIPE_URL" "$FORGEPIPE_SHA256" "$RUNNER_TEMP/sdk/forgepipe"
           python3 .github/scripts/fetch-candidate-sdk.py "$SCENE_URL" "$SCENE_SHA256" "$RUNNER_TEMP/sdk/scene"
-          echo "CMAKE_PREFIX_PATH=$RUNNER_TEMP/Qt/6.10.3/gcc_64:$RUNNER_TEMP/sdk/spatialpipe:$RUNNER_TEMP/sdk/forgepipe:$RUNNER_TEMP/sdk/scene" >> "$GITHUB_ENV"
+          echo "CMAKE_PREFIX_PATH=$RUNNER_TEMP/Qt/6.10.3/gcc_64:$RUNNER_TEMP/sdk/spatialpipe:$RUNNER_TEMP/sdk/forgepipe/ForgePipe-SDK-0.1.0-Linux:$RUNNER_TEMP/sdk/scene" >> "$GITHUB_ENV"
           echo "LD_LIBRARY_PATH=$RUNNER_TEMP/Qt/6.10.3/gcc_64/lib" >> "$GITHUB_ENV"
       - name: Validate repository workflows
         run: dockpipe --workflow-file workflows/check/config.yml

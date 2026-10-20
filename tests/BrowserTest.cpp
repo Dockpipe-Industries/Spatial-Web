@@ -271,10 +271,26 @@ static int runBrowserChecks()
         CHECK_BROWSER(browser.findChild<QPushButton *>("browserForward")->isEnabled());
         QPointer<QWebEngineDownloadRequest> cancelledDownload;
         bool downloadRequested = false;
+        bool observeSavedDownload = false;
+        bool savedDownloadFinished = false;
+        QWebEngineDownloadRequest::DownloadState savedDownloadState = QWebEngineDownloadRequest::DownloadRequested;
+        QString savedDownloadPath;
         QObject::connect(profile, &QWebEngineProfile::downloadRequested, &browser,
             [&](QWebEngineDownloadRequest *download) {
                 downloadRequested = true;
                 cancelledDownload = download;
+                if (!observeSavedDownload)
+                    return;
+                const auto recordFinishedDownload = [&, download]() {
+                    if (!download->isFinished())
+                        return;
+                    savedDownloadFinished = true;
+                    savedDownloadState = download->state();
+                    savedDownloadPath = QDir(download->downloadDirectory()).filePath(download->downloadFileName());
+                };
+                QObject::connect(download, &QWebEngineDownloadRequest::isFinishedChanged,
+                    &browser, recordFinishedDownload);
+                recordFinishedDownload();
             });
         QTimer dismissSaveDialog;
         dismissSaveDialog.setInterval(20);
@@ -291,6 +307,7 @@ static int runBrowserChecks()
         CHECK_BROWSER(downloads.isValid());
         const QString savedFile = downloads.filePath("saved.html");
         downloadRequested = false;
+        observeSavedDownload = true;
         QTimer acceptSaveDialog;
         acceptSaveDialog.setInterval(20);
         QObject::connect(&acceptSaveDialog, &QTimer::timeout, &browser, [&]() {
@@ -301,9 +318,12 @@ static int runBrowserChecks()
         });
         acceptSaveDialog.start();
         view->page()->download(first, "browser-test.html");
-        CHECK_BROWSER(waitUntil([&]() { return downloadRequested && cancelledDownload.isNull(); }));
+        CHECK_BROWSER(waitUntil([&]() { return downloadRequested && savedDownloadFinished; }));
         acceptSaveDialog.stop();
-        QFile downloaded(savedFile);
+        observeSavedDownload = false;
+        CHECK_BROWSER(savedDownloadState == QWebEngineDownloadRequest::DownloadCompleted);
+        CHECK_BROWSER(QDir::cleanPath(savedDownloadPath) == QDir::cleanPath(savedFile));
+        QFile downloaded(savedDownloadPath);
         CHECK_BROWSER(downloaded.open(QIODevice::ReadOnly));
         CHECK_BROWSER(downloaded.readAll().contains("Browser test page"));
         CHECK_BROWSER(status->text().contains("Download saved"));
