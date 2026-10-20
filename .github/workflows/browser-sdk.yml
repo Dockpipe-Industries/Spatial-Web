@@ -1,0 +1,121 @@
+name: Browser SDK binary candidate matrix
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish this complete qualified matrix as an immutable prerelease candidate
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-22.04
+            platform: linux-amd64
+            host: linux
+            architecture: linux_gcc_64
+            kit: gcc_64
+            python: python3
+          - runner: ubuntu-24.04-arm
+            platform: linux-arm64
+            host: linux_arm64
+            architecture: linux_gcc_arm64
+            kit: gcc_arm64
+            python: python3
+          - runner: macos-15-intel
+            platform: darwin-amd64
+            host: mac
+            architecture: clang_64
+            kit: macos
+            python: python3
+          - runner: macos-15
+            platform: darwin-arm64
+            host: mac
+            architecture: clang_64
+            kit: macos
+            python: python3
+          - runner: windows-2025
+            platform: windows-amd64
+            host: windows
+            architecture: win64_msvc2022_64
+            kit: msvc2022_64
+            python: python
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Install public Linux prerequisites
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          audio_package=libasound2
+          if [[ "${{ matrix.platform }}" == linux-arm64 ]]; then audio_package=libasound2t64; fi
+          sudo apt-get install -y build-essential cmake ninja-build python3-venv libgl1-mesa-dev libegl1-mesa-dev libxkbcommon-dev libxkbcommon-x11-0 libxcb-cursor0 libnss3 libopus0 libminizip1 "$audio_package"
+      - name: Bootstrap committed native Dockpipe pin
+        shell: bash
+        run: ${{ matrix.python }} .github/scripts/bootstrap-browser-cli.py
+      - name: Install pinned Qt kit
+        shell: bash
+        run: |
+          ${{ matrix.python }} -m venv "$RUNNER_TEMP/aqt"
+          if [[ "$RUNNER_OS" == Windows ]]; then aqt_python="$RUNNER_TEMP/aqt/Scripts/python.exe"; else aqt_python="$RUNNER_TEMP/aqt/bin/python"; fi
+          "$aqt_python" -m pip install --disable-pip-version-check aqtinstall==3.3.0
+          "$aqt_python" -m aqt install-qt '${{ matrix.host }}' desktop 6.10.3 '${{ matrix.architecture }}' --outputdir "$RUNNER_TEMP/Qt" --modules qtwebengine qtwebchannel qtpositioning qtimageformats
+          qt_root="$RUNNER_TEMP/Qt/6.10.3/${{ matrix.kit }}"
+          echo "$qt_root/bin" >> "$GITHUB_PATH"
+          echo "CMAKE_PREFIX_PATH=$qt_root" >> "$GITHUB_ENV"
+          echo "LD_LIBRARY_PATH=$qt_root/lib" >> "$GITHUB_ENV"
+          echo "DYLD_FRAMEWORK_PATH=$qt_root/lib" >> "$GITHUB_ENV"
+      - name: Validate publication guards
+        shell: bash
+        run: ${{ matrix.python }} -B -m unittest discover -s release/tests -v
+      - name: Build, test, install and qualify the relocated Browser-only binary SDK
+        shell: bash
+        env:
+          SPATIAL_WEB_VARIANT: browser
+          SPATIAL_WEB_PLATFORM: ${{ matrix.platform }}
+          SPATIAL_WEB_PYTHON: ${{ matrix.python }}
+          SPATIAL_WEB_CANDIDATE_OUTPUT: ${{ runner.temp }}/browser-sdk
+        run: |
+          dockpipe --workflow-file workflows/check/config.yml
+          dockpipe --workflow-file workflows/test/config.yml
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: browser-sdk-${{ matrix.platform }}
+          path: ${{ runner.temp }}/browser-sdk/
+          if-no-files-found: error
+          retention-days: 7
+  publish:
+    if: github.event_name == 'workflow_dispatch' && inputs.publish && github.ref == 'refs/heads/dev'
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          pattern: browser-sdk-*
+          merge-multiple: true
+          path: ${{ runner.temp }}/browser-sdk
+      - uses: actions/attest-build-provenance@43d14bc2b83dec42d39ecae14e916627a18bb661 # v3
+        with:
+          subject-path: |
+            ${{ runner.temp }}/browser-sdk/*.tar.gz
+            ${{ runner.temp }}/browser-sdk/*.release.json
+            ${{ runner.temp }}/browser-sdk/*.files.json
+      - name: Publish exact immutable Browser SDK matrix and read back tag/assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -B release/publish-browser-sdk.py --directory "$RUNNER_TEMP/browser-sdk"

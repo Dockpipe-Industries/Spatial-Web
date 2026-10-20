@@ -1,0 +1,10 @@
+name: test
+description: Verify browser library behavior and an independent installed SDK consumer
+docker_preflight: false
+steps:
+  - id: browser
+    kind: host
+    cwd: artifacts
+    scopes:
+      source: repo
+    run: assets/run.sh

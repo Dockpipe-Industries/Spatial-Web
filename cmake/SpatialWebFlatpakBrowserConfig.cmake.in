@@ -1,0 +1,12 @@
+@PACKAGE_INIT@
+include(CMakeFindDependencyMacro)
+# The official KDE stack versions modules independently. Every patch is exact.
+foreach(component IN ITEMS Core Gui Widgets Network PrintSupport)
+    find_dependency(Qt6${component} 6.10.3 EXACT CONFIG)
+endforeach()
+foreach(component IN ITEMS WebEngineCore WebEngineWidgets)
+    find_dependency(Qt6${component} 6.10.2 EXACT CONFIG)
+endforeach()
+set(SpatialWebFlatpakBrowser_ABI_PROFILE "flatpak-kde-6.10")
+include("${CMAKE_CURRENT_LIST_DIR}/SpatialWebFlatpakBrowserTargets.cmake")
+check_required_components(SpatialWebFlatpakBrowser)
