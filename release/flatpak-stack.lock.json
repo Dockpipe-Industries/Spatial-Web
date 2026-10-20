@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "profile": "flatpak-kde-6.10",
+  "platform": "linux-amd64-flatpak-kde-6.10",
+  "compiler": {
+    "id": "GNU",
+    "version": "15.2.0"
+  },
+  "qt_components": {
+    "Qt6Core": "6.10.3",
+    "Qt6Gui": "6.10.3",
+    "Qt6Widgets": "6.10.3",
+    "Qt6Network": "6.10.3",
+    "Qt6PrintSupport": "6.10.3",
+    "Qt6WebEngineCore": "6.10.2",
+    "Qt6WebEngineWidgets": "6.10.2"
+  },
+  "flatpak": {
+    "sdk": {
+      "ref": "runtime/org.kde.Sdk/x86_64/6.10",
+      "commit": "58a3c36a9e2cbd3fb3507d88d9195b3dcb8e8cde7bce86a0a0a5700a28a0ea18"
+    },
+    "runtime": {
+      "ref": "runtime/org.kde.Platform/x86_64/6.10",
+      "commit": "31742ff0f905913c512ea732960bbdeffa8306dcbebca45eeee62bfed0ca03a3"
+    },
+    "base": {
+      "ref": "app/io.qt.qtwebengine.BaseApp/x86_64/6.10",
+      "commit": "dd4e9c5120bc85d02d5f68864dc838e3a17b73523bfe4e83b192f260b5d5133f"
+    }
+  }
+}
