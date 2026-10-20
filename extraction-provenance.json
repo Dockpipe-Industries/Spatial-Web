@@ -1,0 +1,529 @@
+{
+  "schema": 1,
+  "owner": "Spatial-Web",
+  "checkpoint": "ordinary-browser-content-and-spatial-projection-sdks",
+  "source_head": "e491c7938fd721a27f842ec8dc7bba9889d7f96e",
+  "source_retirement": "Consumer parity and release/catalog installation gates remain separate",
+  "files": [
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserAnnotationDialog.cpp",
+      "source_sha256": "a4c22bdd40cd7ed60d58ace69aa5dec08bcf772b01e1a0225f590ec1cdbf0550",
+      "target": "browser/src/BrowserAnnotationDialog.cpp",
+      "target_sha256": "a4c22bdd40cd7ed60d58ace69aa5dec08bcf772b01e1a0225f590ec1cdbf0550",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserAnnotationDialog.h",
+      "source_sha256": "04c952da08a7803c23b96f669fb29484c300170c83707f6e6b16bbd603da9ccb",
+      "target": "browser/include/SpatialWeb/Browser/BrowserAnnotationDialog.h",
+      "target_sha256": "ac789b1a957f71d7f497838e39267ca3ab6656cedfbe98b85afd423e0b7fa35f",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserDownloads.cpp",
+      "source_sha256": "228d259b35fbff6d4817e1856dc4606d303d4b4b142c064baddd4eec0002db50",
+      "target": "browser/src/BrowserDownloads.cpp",
+      "target_sha256": "228d259b35fbff6d4817e1856dc4606d303d4b4b142c064baddd4eec0002db50",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserDownloads.h",
+      "source_sha256": "60dc78ce6280d9125e3c368ebfbf9c4c3bb1ed3a6b5ea789d99159fd2ccfac93",
+      "target": "browser/include/SpatialWeb/Browser/BrowserDownloads.h",
+      "target_sha256": "532bcfbc8bdf8ca9bf49ca3dd611facdd00d33e8c08b02c574985a87cfc87a40",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserExtensionCrx.cpp",
+      "source_sha256": "c4473494045e0e74924e772299e75abeb8428dd911e65e9475461a7b73c7393c",
+      "target": "browser/src/BrowserExtensionCrx.cpp",
+      "target_sha256": "c4473494045e0e74924e772299e75abeb8428dd911e65e9475461a7b73c7393c",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserExtensionCrx.h",
+      "source_sha256": "b33b91e7048fcc7b518ffbd5213ca7a29a69ad165fbfbe5a08c5558ef6d7d9e5",
+      "target": "browser/include/SpatialWeb/Browser/BrowserExtensionCrx.h",
+      "target_sha256": "68d1bd1df7643a78670009608617f14589154228b5e538dcdcc68c230572ae6e",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserExtensionPackage.cpp",
+      "source_sha256": "daea7971e4ec8dc45fe9585f86d47131b1220f156becfaee1ee56190e656ca8f",
+      "target": "browser/src/BrowserExtensionPackage.cpp",
+      "target_sha256": "daea7971e4ec8dc45fe9585f86d47131b1220f156becfaee1ee56190e656ca8f",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserExtensionPackage.h",
+      "source_sha256": "bfc6a4c08de3b6f07f6855b583a1c6174b633ac0b2c8fcf2ef8fd8b8974ffbaf",
+      "target": "browser/include/SpatialWeb/Browser/BrowserExtensionPackage.h",
+      "target_sha256": "098711ee422049353a1b44ec70075bd626ead95bbe1a49fca3816b18c190f9e8",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserExtensionStore.cpp",
+      "source_sha256": "2698a366cec81bddedd11a5f865ec89da6224ec85241dcb5bb7c13745cb8ee58",
+      "target": "browser/src/BrowserExtensionStore.cpp",
+      "target_sha256": "2698a366cec81bddedd11a5f865ec89da6224ec85241dcb5bb7c13745cb8ee58",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserExtensionStore.h",
+      "source_sha256": "c4cdb277fc4493414daf9a97886d1b1b2ad08305f6cae36da1c7223b623ecda5",
+      "target": "browser/include/SpatialWeb/Browser/BrowserExtensionStore.h",
+      "target_sha256": "abe1ac056a2eba24bde68f9cb7f3b8b712867a6e2714e8968e537eb86beff2fe",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserExtensionsDialog.cpp",
+      "source_sha256": "dbabe036978d76cff828bdb30d004d00416d39578496a895ff8b16d0ef9c8717",
+      "target": "browser/src/BrowserExtensionsDialog.cpp",
+      "target_sha256": "dbabe036978d76cff828bdb30d004d00416d39578496a895ff8b16d0ef9c8717",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserExtensionsDialog.h",
+      "source_sha256": "cfa29026f34c27c98b35a8d9b7bf3663b2b8e79c8f7bc0b5411f57c7db4593e7",
+      "target": "browser/include/SpatialWeb/Browser/BrowserExtensionsDialog.h",
+      "target_sha256": "a839a34c96040a8d64665556472ed1ab0aab0a7121cb20eabc257c352f4c5080",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserLinkRouter.cpp",
+      "source_sha256": "c4131105f328bf884f0536935efe363dbc3c7c58b92c937ba3e6e8085965c06e",
+      "target": "browser/src/BrowserLinkRouter.cpp",
+      "target_sha256": "c4131105f328bf884f0536935efe363dbc3c7c58b92c937ba3e6e8085965c06e",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserLinkRouter.h",
+      "source_sha256": "ba9d4e621c3f12a2cb6e379940e2b81c0497ce63a611ae974c93b48a7afa0874",
+      "target": "browser/include/SpatialWeb/Browser/BrowserLinkRouter.h",
+      "target_sha256": "1c3d295f34f641a80f15cce3002867679f14745cfd46365d58cd94584cf36465",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserPreferences.cpp",
+      "source_sha256": "847b052e0f3db407545b33572a0816d4999c328aba12b001106df299d03d87f5",
+      "target": "browser/src/BrowserPreferences.cpp",
+      "target_sha256": "32d5c257410cd3d51d97ed1f59db2753d4f32dc4b3e120f8945e370a7c9b100a",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserPreferences.h",
+      "source_sha256": "183cc71e9623254b7be7a807f226a382ce5093f28ff3e7c2791302dc04f1382c",
+      "target": "browser/include/SpatialWeb/Browser/BrowserPreferences.h",
+      "target_sha256": "266dd5988d74458fc210b34c597e9a0170d370ff2f59efe72332bfeb36da01e3",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserRuntime.cpp",
+      "source_sha256": "9783cf2e6484358c81dedeba4322ee9e36c3077d3740cdf600d350edbb8f196d",
+      "target": "browser/src/BrowserRuntime.cpp",
+      "target_sha256": "9783cf2e6484358c81dedeba4322ee9e36c3077d3740cdf600d350edbb8f196d",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserRuntime.h",
+      "source_sha256": "5a54490acce4f7a746df6f8a093f8c0ef5e2619c9d310398ee2d2da1f944bffa",
+      "target": "browser/include/SpatialWeb/Browser/BrowserRuntime.h",
+      "target_sha256": "09860d40b6de01481ed41d51b9fa2df102aeceeee7c3e84959483a9fb54befc8",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserSettingsDialog.cpp",
+      "source_sha256": "678044d1e42707e4ecb42527d4ad322ea6ae9287434c2fc61fbe2cc0899e268b",
+      "target": "browser/src/BrowserSettingsDialog.cpp",
+      "target_sha256": "48acc7aabd116b6b1de3a706abb1ebee8a5d077a956aded8f4a0641a370a492c",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserSettingsDialog.h",
+      "source_sha256": "3a24d463343dc2dba649f50bdaa10c77fdf1fd7cec7bb4e9d8053e9d1859669b",
+      "target": "browser/include/SpatialWeb/Browser/BrowserSettingsDialog.h",
+      "target_sha256": "62f3f854ea8793f6b9041db6adcfce2bc6acd484a0f28945a36a6c667287fa41",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserTabBar.cpp",
+      "source_sha256": "40628d0cb19d40cc0502afe69c0049b932df4d1ab76e5963288b089aab1d17a6",
+      "target": "browser/src/BrowserTabBar.cpp",
+      "target_sha256": "40628d0cb19d40cc0502afe69c0049b932df4d1ab76e5963288b089aab1d17a6",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserTabBar.h",
+      "source_sha256": "52530981162c5121d4b9b5ab1b33da675f7d71b77defd1b5e521ee407c1fb6f1",
+      "target": "browser/include/SpatialWeb/Browser/BrowserTabBar.h",
+      "target_sha256": "f7ba34c1a9ba4f6ce4fc94d1555a9358f104e6d965565eea2b7679c1a703bcc6",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserWidget.cpp",
+      "source_sha256": "96a28c6546f9c5c0a438a98983ba163ae06e982328a7de0539dfe4a33df02624",
+      "target": "browser/src/BrowserWidget.cpp",
+      "target_sha256": "058b83439b46ec3eb45b92eedcc8b23b5990833e964a79f858aa91b8c2dfc24f",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserWidget.h",
+      "source_sha256": "17de701c6dcf10701656dcc14394570f28f79f3da40ae0faffd71c5699ec8cbc",
+      "target": "browser/include/SpatialWeb/Browser/BrowserWidget.h",
+      "target_sha256": "eae870841a4bd017649bf44ea29e810ffc431a35edcd0c3d8fada6a75903bde8",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserWidgetPermissions.cpp",
+      "source_sha256": "ba0afbb08fb42613a28cddba4c8f869295543cec70eec17acac79efb68b43c25",
+      "target": "browser/src/BrowserWidgetPermissions.cpp",
+      "target_sha256": "ba0afbb08fb42613a28cddba4c8f869295543cec70eec17acac79efb68b43c25",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/src/BrowserWidgetTools.cpp",
+      "source_sha256": "d8a7105febffd8f0724bc372865c6ed5d676be1db7bfe791818adf5851319780",
+      "target": "browser/src/BrowserWidgetTools.cpp",
+      "target_sha256": "cde11ab92eed80630b94f11c8684bdae5ed270eeb6126e1bf18bed33acba4bed",
+      "adaptation": "Neutral host settings/icons and shared-library export declarations; browser behavior retained"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/tests/BrowserTest.cpp",
+      "source_sha256": "cd938d3b84b00a872437560549b8ad147ece9166cdde815a731af32660faf7fa",
+      "target": "tests/BrowserTest.cpp",
+      "target_sha256": "9f63d90845b9645090876b3f52f3d4baf946a977bebe571e7409425f99fce179",
+      "adaptation": "Test shell uses Qt Fusion palette; assertions unchanged"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/tests/BrowserExtensionCrxTest.cpp",
+      "source_sha256": "a4453086eee0b850015f6a42799a84cfb2ce3d6f0a579ae104caa313b34c14a5",
+      "target": "tests/BrowserExtensionCrxTest.cpp",
+      "target_sha256": "a4453086eee0b850015f6a42799a84cfb2ce3d6f0a579ae104caa313b34c14a5",
+      "adaptation": "Test shell uses Qt Fusion palette; assertions unchanged"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/tests/BrowserExtensionPackageTest.cpp",
+      "source_sha256": "27eee4798f36656cc5e4ca600179dcb6c223dc0a4960e65ddcc65fd69969e0a7",
+      "target": "tests/BrowserExtensionPackageTest.cpp",
+      "target_sha256": "27eee4798f36656cc5e4ca600179dcb6c223dc0a4960e65ddcc65fd69969e0a7",
+      "adaptation": "Test shell uses Qt Fusion palette; assertions unchanged"
+    },
+    {
+      "source": "src/app/tooling/dockpipe-launcher/tests/BrowserExtensionStoreTest.cpp",
+      "source_sha256": "523bac4e32d8379482658f9d2ef411d75b5b87e10e0a5e726242e3130303f37e",
+      "target": "tests/BrowserExtensionStoreTest.cpp",
+      "target_sha256": "523bac4e32d8379482658f9d2ef411d75b5b87e10e0a5e726242e3130303f37e",
+      "adaptation": "Test shell uses Qt Fusion palette; assertions unchanged"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWebDocument.h",
+      "source_sha256": "77fc8ffb919e7bffb7e2c76f63833d38e87955641742981662c868357c1d189d",
+      "target": "composition/include/SpatialWeb/Composition/SpatialWebDocument.h",
+      "target_sha256": "df05ade63ea136af4c375c90ef7d678af61c7e5f74fdf95e1f4dd6dfe1fbc42e",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWebDocument.cpp",
+      "source_sha256": "5ca9952a305ce24715b4dbed852608b48cf0930176338164dd2cd40b0a6ca4b5",
+      "target": "composition/src/SpatialWebDocument.cpp",
+      "target_sha256": "57f4a4020bf1c5dd9760501dd6215ff420af1974320925a29b275f8932afc1eb",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWebGraph.h",
+      "source_sha256": "6a4f320e70e394b6f883ea664470cf4f45944beca022c1915557d973c273a93a",
+      "target": "composition/include/SpatialWeb/Composition/SpatialWebGraph.h",
+      "target_sha256": "6a4f320e70e394b6f883ea664470cf4f45944beca022c1915557d973c273a93a",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWebGraph.cpp",
+      "source_sha256": "a3db2b0533801eb74c5dde275732f9ffd3b543d1a64e3af4f1e6a3907afd1690",
+      "target": "composition/src/SpatialWebGraph.cpp",
+      "target_sha256": "a3db2b0533801eb74c5dde275732f9ffd3b543d1a64e3af4f1e6a3907afd1690",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWebMedia.h",
+      "source_sha256": "8f2dfe80c208616ddba765a6504448a5edf0baac900ab95ed6d1865a14062966",
+      "target": "composition/include/SpatialWeb/Composition/SpatialWebMedia.h",
+      "target_sha256": "8f2dfe80c208616ddba765a6504448a5edf0baac900ab95ed6d1865a14062966",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWebMedia.cpp",
+      "source_sha256": "d63cd24965cbf32de2e093168c43f25d535d4c06cf6c6cfac0ecdae063260596",
+      "target": "composition/src/SpatialWebMedia.cpp",
+      "target_sha256": "a2e02ec23bd6ab917e6e71760d262d4c3b20493de88ad714840027d4332aa000",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialAnimalModel.h",
+      "source_sha256": "03b061668b7c707cbfcde9860a9238d296be5a2196bf2353624d770c9924a137",
+      "target": "composition/include/SpatialWeb/Composition/SpatialAnimalModel.h",
+      "target_sha256": "03b061668b7c707cbfcde9860a9238d296be5a2196bf2353624d770c9924a137",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialAnimalModel.cpp",
+      "source_sha256": "784461b5c13c9d61c5ef48857cd1220604b8d22016da3660fd1f5250936348af",
+      "target": "composition/src/SpatialAnimalModel.cpp",
+      "target_sha256": "784461b5c13c9d61c5ef48857cd1220604b8d22016da3660fd1f5250936348af",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialSitePolicy.h",
+      "source_sha256": "e82739bb62b8b3c4b7bbfa3418a7fb4901655dc4877bb5a6eea022ec08cbc94d",
+      "target": "composition/include/SpatialWeb/Composition/SpatialSitePolicy.h",
+      "target_sha256": "e82739bb62b8b3c4b7bbfa3418a7fb4901655dc4877bb5a6eea022ec08cbc94d",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialSitePolicy.cpp",
+      "source_sha256": "f297153d1bf30a39df6426b386abd8528e828077abf674e8b93acc6aa9551423",
+      "target": "composition/src/SpatialSitePolicy.cpp",
+      "target_sha256": "f297153d1bf30a39df6426b386abd8528e828077abf674e8b93acc6aa9551423",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialSitePage.h",
+      "source_sha256": "d0e7440f99d28f65b78d1d3bd97704c3c57d06f9e350077a1ea313ae713dcaec",
+      "target": "composition/include/SpatialWeb/Composition/SpatialSitePage.h",
+      "target_sha256": "d0e7440f99d28f65b78d1d3bd97704c3c57d06f9e350077a1ea313ae713dcaec",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialSitePage.cpp",
+      "source_sha256": "19858a983e49b735ae2612b55bb87bee00a7757ae1c3acfabcec6e3969051f05",
+      "target": "composition/src/SpatialSitePage.cpp",
+      "target_sha256": "19858a983e49b735ae2612b55bb87bee00a7757ae1c3acfabcec6e3969051f05",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialSiteWorld.h",
+      "source_sha256": "5d235ab9b0f07ec15cc2cf3383b5faa0e89b2649800c1b46c858640ba8df39b4",
+      "target": "composition/include/SpatialWeb/Composition/SpatialSiteWorld.h",
+      "target_sha256": "5d235ab9b0f07ec15cc2cf3383b5faa0e89b2649800c1b46c858640ba8df39b4",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialSiteWorld.cpp",
+      "source_sha256": "cb00905fb523e7e4470d06a0754976f252dfeb9f71dca88d21f0fdc71576ed10",
+      "target": "composition/src/SpatialSiteWorld.cpp",
+      "target_sha256": "cb00905fb523e7e4470d06a0754976f252dfeb9f71dca88d21f0fdc71576ed10",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialSiteFetch.h",
+      "source_sha256": "17d247cb19d02db488eca9d200e8bf4c26052a6850b82b3182b6aa6911c6cae5",
+      "target": "composition/include/SpatialWeb/Composition/SpatialSiteFetch.h",
+      "target_sha256": "17d247cb19d02db488eca9d200e8bf4c26052a6850b82b3182b6aa6911c6cae5",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialSiteFetch.cpp",
+      "source_sha256": "58e5ce6c12be91361a95278e0133859a5a9090f88761a1e3583c6f0a152af410",
+      "target": "composition/src/SpatialSiteFetch.cpp",
+      "target_sha256": "58e5ce6c12be91361a95278e0133859a5a9090f88761a1e3583c6f0a152af410",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialSiteCrawler.h",
+      "source_sha256": "db28be467d86d065331a2be6ad6fa75d643043cf67e7d5696832eb1a9b9f0c3e",
+      "target": "composition/include/SpatialWeb/Composition/SpatialSiteCrawler.h",
+      "target_sha256": "db28be467d86d065331a2be6ad6fa75d643043cf67e7d5696832eb1a9b9f0c3e",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialSiteCrawler.cpp",
+      "source_sha256": "c73c9b556f14e582faa0331651026f6d1d71f3397dedd88a158ce566fa577cf7",
+      "target": "composition/src/SpatialSiteCrawler.cpp",
+      "target_sha256": "c73c9b556f14e582faa0331651026f6d1d71f3397dedd88a158ce566fa577cf7",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialSiteExplorer.h",
+      "source_sha256": "f1116e389b72cc44f3b5453c620c90c8f10e6e0d57f359c58227b912b6d951ae",
+      "target": "composition/include/SpatialWeb/Composition/SpatialSiteExplorer.h",
+      "target_sha256": "f1116e389b72cc44f3b5453c620c90c8f10e6e0d57f359c58227b912b6d951ae",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialSiteExplorer.cpp",
+      "source_sha256": "1a21128018c952c6ce461b4a5b6418fd5ae93f96e6c80a68bb99d2e83e97c3ac",
+      "target": "composition/src/SpatialSiteExplorer.cpp",
+      "target_sha256": "1a21128018c952c6ce461b4a5b6418fd5ae93f96e6c80a68bb99d2e83e97c3ac",
+      "adaptation": "Public installed runtime includes; room projection implementation remains in consumer; media resource initialized in archive"
+    },
+    {
+      "source": "packages/cockpit/resources/media.js",
+      "source_sha256": "ef03467b9c4f4b4a17998d56b43385f546433324904ada4d71ae066da8550932",
+      "target": "composition/assets/media.js",
+      "target_sha256": "ef03467b9c4f4b4a17998d56b43385f546433324904ada4d71ae066da8550932",
+      "adaptation": "Media resource preserved; inherited site fixture keeps content/crawler/cache/cancellation tests and leaves projection/render proof in consumer"
+    },
+    {
+      "source": "packages/cockpit/tests/SpatialSiteTest.cpp",
+      "source_sha256": "22f76253e1be0c4f130205959760967537aa75311db934f004d684dbb8bb70eb",
+      "target": "tests/SpatialSiteModelTest.cpp",
+      "target_sha256": "f3ff35604268f9ea752fc28b057e638da58255a6e0ee3caca2d0e781816f5a11",
+      "adaptation": "Media resource preserved; inherited site fixture keeps content/crawler/cache/cancellation tests and leaves projection/render proof in consumer"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWebWorld.h",
+      "source_sha256": "eea668c80998e8e0cff7f6aa642e46f8e4584ce59d2a0f1415cdc5a28a3bc51a",
+      "target": "projection/include/SpatialWeb/Projection/SpatialWebWorld.h",
+      "target_sha256": "eea668c80998e8e0cff7f6aa642e46f8e4584ce59d2a0f1415cdc5a28a3bc51a",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWebWorld.cpp",
+      "source_sha256": "809c5325a2b5d19e4ecc3e218497ff6222bf18ee3bd133a088422e84339cc20c",
+      "target": "projection/src/SpatialWebWorld.cpp",
+      "target_sha256": "809c5325a2b5d19e4ecc3e218497ff6222bf18ee3bd133a088422e84339cc20c",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWorldPlan.h",
+      "source_sha256": "4397b5c73d2b7768c85336dce3d9bb98734cc4f44b79816ef6e5b323df1cb1ea",
+      "target": "projection/include/SpatialWeb/Projection/SpatialWorldPlan.h",
+      "target_sha256": "4397b5c73d2b7768c85336dce3d9bb98734cc4f44b79816ef6e5b323df1cb1ea",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWorldPlanner.cpp",
+      "source_sha256": "b1facfe2ca211df17d9574a316b7664e2ace32a8e59ffbdd5431f885c43c2c54",
+      "target": "projection/src/SpatialWorldPlanner.cpp",
+      "target_sha256": "b1facfe2ca211df17d9574a316b7664e2ace32a8e59ffbdd5431f885c43c2c54",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWorldCompiler.cpp",
+      "source_sha256": "c06574c6e173b6d5fbb9ae16e695d601ae65f0f84bc85f48200372569cbbc495",
+      "target": "projection/src/SpatialWorldCompiler.cpp",
+      "target_sha256": "fbc8aaa04d81bec35ee2ac9998f1dcb25dd711e9ee1f18c4c2f6d43cba03acaf",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWorldArchitecture.h",
+      "source_sha256": "95cc8af12c85a1e8e5d16bde71a1cf14597996bbe8abf512f6ebb21e101ef862",
+      "target": "projection/include/SpatialWeb/Projection/SpatialWorldArchitecture.h",
+      "target_sha256": "95cc8af12c85a1e8e5d16bde71a1cf14597996bbe8abf512f6ebb21e101ef862",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWorldArchitecture.cpp",
+      "source_sha256": "c2fa5e9febab896c87ec214af3e93ba82d8e247cfc67247a2a4becd22bf9751d",
+      "target": "projection/src/SpatialWorldArchitecture.cpp",
+      "target_sha256": "c2fa5e9febab896c87ec214af3e93ba82d8e247cfc67247a2a4becd22bf9751d",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialCivicWorld.h",
+      "source_sha256": "7b99b9eec28cf23c9df93819e3b52dd01e21247cb0f6034ec995dad606d04016",
+      "target": "projection/include/SpatialWeb/Projection/SpatialCivicWorld.h",
+      "target_sha256": "f54448bf6943106b60b7651b9292095b2fc118c673c653310b8d85a5372cbb2f",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialCivicWorld.cpp",
+      "source_sha256": "2ef3296adbdb7b02ec93afbbc7f7e4b975ec796bf3170942bfb05bbcdd934021",
+      "target": "projection/src/SpatialCivicWorld.cpp",
+      "target_sha256": "6c733621ca664a0996d6fd0e53b27c7dff5cd29ab34d4ef9e7a85864a1f7bbe5",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWebPassage.h",
+      "source_sha256": "07c66a6e5fa0a0e2d67bbabccbff031aa67ca6f0fd3f6931904d9dac524645bb",
+      "target": "projection/include/SpatialWeb/Projection/SpatialWebPassage.h",
+      "target_sha256": "0b1d7e647fd2164d5182c5900044370b68f399f1b3033cd71247f0f4338d7fff",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWebPassage.cpp",
+      "source_sha256": "62ab62f3c5113fb5c41ae5a7010e9f3da5ea763ee6585843cacce51057c1bb3d",
+      "target": "projection/src/SpatialWebPassage.cpp",
+      "target_sha256": "9bdd9aee5747b5221189a66a17717ed8145fa36a024893a3418a1ef8fd8c2f30",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWebBrowser.h",
+      "source_sha256": "d0e400c21eab45d53490056b9aaca0bdc5fe5e1d6e02a65d1770f711c1652523",
+      "target": "projection/include/SpatialWeb/Projection/SpatialWebBrowser.h",
+      "target_sha256": "e49454d64c758139966af9a6a41abd9339e0d8201fc0f4c2d8dcdc0b59663010",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWebBrowser.cpp",
+      "source_sha256": "6e461ef9cafa5d928f1efd1e72d55f8f9c912eaad628c8ce4bc1fcefa8679c66",
+      "target": "projection/src/SpatialWebBrowser.cpp",
+      "target_sha256": "27483287c18201889be98868bf67537108f3ea16dd7f0717c4c70f94bb2d993a",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWebSearch.cpp",
+      "source_sha256": "e175550f6eb45fdec7faa9a86441a9a0ac0cdfb6819326449444f4bc1935ddb1",
+      "target": "projection/src/SpatialWebSearch.cpp",
+      "target_sha256": "28bbe9b9b313e9b0b683d0bbdf8521c6261403d661dd6606694e336c3a892dd8",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialWebIntelligence.cpp",
+      "source_sha256": "ed79d5d1a86704ce340a35aada765bf3ecc4a7ad2a372114b5c9d54bbdc44b32",
+      "target": "projection/src/SpatialWebIntelligence.cpp",
+      "target_sha256": "b67c9b9e9b4fd22af9df486b34c071bb4c4fca6d88204f0dc2f363e540e08938",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialNeuralService.h",
+      "source_sha256": "8ac1e3f306ba2eb62f50fc2b290f89ed6a5322a6568b4873dce57740ac5e6842",
+      "target": "projection/include/SpatialWeb/Projection/SpatialNeuralService.h",
+      "target_sha256": "8ac1e3f306ba2eb62f50fc2b290f89ed6a5322a6568b4873dce57740ac5e6842",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/src/SpatialNeuralService.cpp",
+      "source_sha256": "d36a8194f964748f9f17de3f8db21dd4bf847d48a37a68107544f7deed7a279f",
+      "target": "projection/src/SpatialNeuralService.cpp",
+      "target_sha256": "c49b7b5107c56e4f182d1215cbe343c77a72b6657506c88d4aea5e9416871fba",
+      "adaptation": "Installed Scene/Geometry dependencies; neutral browser presentation; HQ/game portals removed; ground height uses neutral geometry"
+    },
+    {
+      "source": "packages/cockpit/resources/extract.js",
+      "source_sha256": "1a0a593e79bebe0015ee31376109eb94fcf582c6f5546a0a467faef87c5f1026",
+      "target": "projection/assets/extract.js",
+      "target_sha256": "1a0a593e79bebe0015ee31376109eb94fcf582c6f5546a0a467faef87c5f1026",
+      "adaptation": "Shared browser projection assets retained; source fixture uses neutral Scene adapter; native-user optional model service uses neutral ownership"
+    },
+    {
+      "source": "packages/cockpit/neural/worker.py",
+      "source_sha256": "1328c926e338bdbe2151b886f9b9ad43954519977c56a2be3a14e6870fd2c6bd",
+      "target": "projection/assets/neural/worker.py",
+      "target_sha256": "1328c926e338bdbe2151b886f9b9ad43954519977c56a2be3a14e6870fd2c6bd",
+      "adaptation": "Shared browser projection assets retained; source fixture uses neutral Scene adapter; native-user optional model service uses neutral ownership"
+    },
+    {
+      "source": "packages/cockpit/neural/install.py",
+      "source_sha256": "978d2852afb8eb65d270a7e288becb131399a410fee9be476500649735948e59",
+      "target": "projection/assets/neural/install.py",
+      "target_sha256": "82049716c9857d514ee91bf6e5e9e2282cddba7652ffe74cee89e437c195c7dc",
+      "adaptation": "Shared browser projection assets retained; source fixture uses neutral Scene adapter; native-user optional model service uses neutral ownership"
+    },
+    {
+      "source": "packages/cockpit/neural/models.json",
+      "source_sha256": "61a53ebe9fd0cc9876506da7be2e55ab558e6d9996a6f960edf21ed5712a8541",
+      "target": "projection/assets/neural/models.json",
+      "target_sha256": "61a53ebe9fd0cc9876506da7be2e55ab558e6d9996a6f960edf21ed5712a8541",
+      "adaptation": "Shared browser projection assets retained; source fixture uses neutral Scene adapter; native-user optional model service uses neutral ownership"
+    },
+    {
+      "source": "packages/cockpit/tests/SpatialWebTest.cpp",
+      "source_sha256": "884ebd4e76499b630f1393bc87d50d20b34b735345551c3270582588535b06b8",
+      "target": "tests/SpatialProjectionTest.cpp",
+      "target_sha256": "6b70d4515be79628eac44b0d31334b9ed63c79601d52a10b8409c1854956d043",
+      "adaptation": "Shared browser projection assets retained; source fixture uses neutral Scene adapter; native-user optional model service uses neutral ownership"
+    }
+  ],
+  "composition_source_head": "f43aa2f4ba77738691a27ce7fb0a2b1819ee973b",
+  "projection_source_head": "f43aa2f4ba77738691a27ce7fb0a2b1819ee973b"
+}

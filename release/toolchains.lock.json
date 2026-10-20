@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "dockpipe": {
+    "version": "0.6.11",
+    "platform": "linux-amd64",
+    "format": "tar.gz",
+    "url": "https://github.com/Dockpipe-Industries/dockpipe/releases/download/v0.6.11/dockpipe_0.6.11_linux_amd64.tar.gz",
+    "sha256": "b35f69eaf015e8e6afa024cc05982425b1a49ea40bd2e96c76570b4760665159"
+  }
+}
