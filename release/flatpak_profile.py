@@ -41,3 +41,14 @@ def read_stack(path=LOCK):
                 or not re.fullmatch(r"[0-9a-f]{64}", item.get("commit", ""))):
             raise ValueError("Flatpak reference requires an exact OSTree commit")
     return stack
+
+
+def read_proof_driver(path=LOCK.with_name("flatpak-proof-driver.lock.json")):
+    if path.is_symlink() or not path.is_file() or path.stat().st_size > 4096:
+        raise ValueError("Qualification driver requires a bounded regular lock")
+    driver = json.loads(path.read_text())
+    if (driver.get("schema") != 1 or driver.get("purpose") != "qualification-only-software-renderer"
+            or driver.get("ref") != "runtime/org.freedesktop.Platform.GL.default/x86_64/25.08"
+            or not re.fullmatch(r"[0-9a-f]{64}", driver.get("commit", ""))):
+        raise ValueError("Qualification driver requires an exact Mesa extension commit")
+    return {"ref": driver["ref"], "commit": driver["commit"]}

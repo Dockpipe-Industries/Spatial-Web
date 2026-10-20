@@ -27,7 +27,8 @@ jobs:
           python3 - <<'PY'
           import json, subprocess
           stack = json.load(open('release/flatpak-stack.lock.json'))
-          for item in stack['flatpak'].values():
+          driver = json.load(open('release/flatpak-proof-driver.lock.json'))
+          for item in [*stack['flatpak'].values(), driver]:
               subprocess.run(['flatpak', 'install', '--user', '--noninteractive', 'flathub', item['ref']], check=True)
               subprocess.run(['flatpak', 'update', '--user', '--noninteractive', '--commit=' + item['commit'], item['ref']], check=True)
           PY

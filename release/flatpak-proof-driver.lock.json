@@ -1,0 +1,6 @@
+{
+  "schema": 1,
+  "purpose": "qualification-only-software-renderer",
+  "ref": "runtime/org.freedesktop.Platform.GL.default/x86_64/25.08",
+  "commit": "fe659a591fe882f573584ae62cfb55b92065e4ff7a972833271438bddfa6669e"
+}

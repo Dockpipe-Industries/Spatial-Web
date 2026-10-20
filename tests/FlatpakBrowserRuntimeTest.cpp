@@ -2,6 +2,9 @@
 #include <SpatialWeb/Browser/BrowserWidget.h>
 
 #include <QApplication>
+#include <QOffscreenSurface>
+#include <QOpenGLContext>
+#include <QOpenGLFunctions>
 #include <QElapsedTimer>
 #include <QFile>
 #include <QJsonDocument>
@@ -53,6 +56,18 @@ int main(int argc, char **argv)
     qputenv("XDG_CACHE_HOME", state.path().toUtf8());
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
     QApplication application(argc, argv);
+    QOpenGLContext context;
+    if (!context.create())
+        return 9;
+    QOffscreenSurface surface;
+    surface.setFormat(context.format());
+    surface.create();
+    if (!context.makeCurrent(&surface))
+        return 10;
+    const auto *rendererBytes = context.functions()->glGetString(GL_RENDERER);
+    const QString renderer = rendererBytes
+        ? QString::fromLatin1(reinterpret_cast<const char *>(rendererBytes)) : QString();
+    context.doneCurrent();
     QTcpServer server;
     if (!server.listen(QHostAddress::LocalHost))
         return 4;
@@ -101,6 +116,7 @@ int main(int argc, char **argv)
         {"runtime_commit", instance.value("Instance/runtime-commit").toString()},
         {"app_commit", instance.value("Instance/app-commit").toString()},
         {"dom", dom},
+        {"renderer", renderer},
         {"sandbox", "default"},
     };
     std::puts(QJsonDocument(receipt).toJson(QJsonDocument::Compact).constData());
