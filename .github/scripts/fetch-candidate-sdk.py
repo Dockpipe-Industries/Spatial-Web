@@ -25,7 +25,10 @@ with urllib.request.urlopen(url, timeout=120) as response, archive.open("wb") as
             raise SystemExit("SDK archive exceeds the 4 GiB download budget")
         output.write(chunk)
 with archive.open("rb") as source:
-    actual = hashlib.file_digest(source, "sha256").hexdigest()
+    digest = hashlib.sha256()
+    for block in iter(lambda: source.read(1024 * 1024), b""):
+        digest.update(block)
+    actual = digest.hexdigest()
 if actual != checksum:
     raise SystemExit("SDK archive SHA-256 mismatch")
 with tarfile.open(archive) as bundle:
