@@ -155,6 +155,10 @@ if(SPATIAL_WEB_BUILD_PROJECTION)
         "${CMAKE_CURRENT_BINARY_DIR}/SpatialWebProjectionConfigVersion.cmake"
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/SpatialWebProjection)
     if(BUILD_TESTING)
+        find_package(Python3 REQUIRED COMPONENTS Interpreter)
+        add_test(NAME SpatialNeuralBoundary COMMAND "${Python3_EXECUTABLE}"
+            "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_neural.py")
+        set_tests_properties(SpatialNeuralBoundary PROPERTIES TIMEOUT 30)
         add_executable(SpatialBrowserLifecycleTest tests/SpatialBrowserLifecycleTest.cpp)
         target_link_libraries(SpatialBrowserLifecycleTest PRIVATE SpatialWeb::Projection)
         add_test(NAME SpatialBrowserLifecycle COMMAND SpatialBrowserLifecycleTest)
