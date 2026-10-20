@@ -1,0 +1,7 @@
+@PACKAGE_INIT@
+include(CMakeFindDependencyMacro)
+# Artifacts carry an exact Qt contract; do not silently mix SDK/renderer kits.
+find_dependency(Qt6 @Qt6_VERSION@ EXACT COMPONENTS Widgets WebEngineWidgets PrintSupport Network)
+set(SpatialWebBrowser_QT_VERSION "@Qt6_VERSION@")
+include("${CMAKE_CURRENT_LIST_DIR}/SpatialWebBrowserTargets.cmake")
+check_required_components(SpatialWebBrowser)
