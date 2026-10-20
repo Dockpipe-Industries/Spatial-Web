@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "compile": {
+    "workflows": [
+      "workflows"
+    ]
+  },
+  "secrets": {},
+  "packages": {
+    "namespace": "spatial-web"
+  }
+}

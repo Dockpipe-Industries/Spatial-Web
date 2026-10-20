@@ -1,0 +1,94 @@
+name: Qualify pinned SDK candidate
+on:
+  pull_request:
+    branches: [dev]
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish the qualified Linux Projection SDK candidate
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  dependency-admission:
+    name: Projection dependency admission
+    runs-on: ubuntu-22.04
+    outputs:
+      ready: ${{ steps.lock.outputs.ready }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - id: lock
+        run: python3 .github/scripts/read-projection-lock.py --check
+  qualify:
+    needs: dependency-admission
+    if: needs.dependency-admission.outputs.ready == 'true'
+
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Install public platform dependencies
+        run: >-
+          sudo apt-get update && sudo apt-get install -y
+          build-essential cmake ninja-build python3-venv libgl1-mesa-dev libegl1-mesa-dev
+          libnss3 libxkbcommon-dev libxkbcommon-x11-0 libxcb-cursor0 libxcomposite1 libxdamage1 libxrandr2 libasound2 libopus0 libminizip1
+      - name: Bootstrap pinned Dockpipe
+        run: bash .github/scripts/bootstrap-dockpipe.sh
+      - name: Read admitted exact public dependency lock
+        run: python3 .github/scripts/read-projection-lock.py
+      - name: Fetch checksum-pinned compatible SDKs
+        run: |
+          python3 -m venv "$RUNNER_TEMP/aqt"
+          "$RUNNER_TEMP/aqt/bin/python" -m pip install --disable-pip-version-check aqtinstall==3.3.0
+          "$RUNNER_TEMP/aqt/bin/python" -m aqt install-qt linux desktop 6.10.3 linux_gcc_64 --outputdir "$RUNNER_TEMP/Qt" --modules qtwebengine qtwebchannel qtpositioning qtimageformats
+          python3 .github/scripts/fetch-candidate-sdk.py "$SPATIALPIPE_URL" "$SPATIALPIPE_SHA256" "$RUNNER_TEMP/sdk/spatialpipe"
+          python3 .github/scripts/fetch-candidate-sdk.py "$FORGEPIPE_URL" "$FORGEPIPE_SHA256" "$RUNNER_TEMP/sdk/forgepipe"
+          python3 .github/scripts/fetch-candidate-sdk.py "$SCENE_URL" "$SCENE_SHA256" "$RUNNER_TEMP/sdk/scene"
+          echo "CMAKE_PREFIX_PATH=$RUNNER_TEMP/Qt/6.10.3/gcc_64:$RUNNER_TEMP/sdk/spatialpipe:$RUNNER_TEMP/sdk/forgepipe/ForgePipe-SDK-0.1.0-Linux:$RUNNER_TEMP/sdk/scene" >> "$GITHUB_ENV"
+          echo "LD_LIBRARY_PATH=$RUNNER_TEMP/Qt/6.10.3/gcc_64/lib" >> "$GITHUB_ENV"
+      - name: Validate repository workflows
+        run: dockpipe --workflow-file workflows/check/config.yml
+      - name: Build and test the candidate and installed consumer
+        env:
+          SPATIAL_WEB_VARIANT: projection
+          SPATIAL_WEB_PLATFORM: linux-amd64
+          SPATIAL_WEB_CANDIDATE_OUTPUT: ${{ runner.temp }}/projection-sdk
+        run: dockpipe --workflow-file workflows/test/config.yml
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: projection-sdk-linux-amd64
+          path: ${{ runner.temp }}/projection-sdk/
+          if-no-files-found: error
+          retention-days: 7
+  publish:
+    if: github.event_name == 'workflow_dispatch' && inputs.publish && github.ref == 'refs/heads/dev'
+    needs: qualify
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: projection-sdk-linux-amd64
+          path: ${{ runner.temp }}/projection-sdk
+      - uses: actions/attest-build-provenance@43d14bc2b83dec42d39ecae14e916627a18bb661 # v3
+        with:
+          subject-path: |
+            ${{ runner.temp }}/projection-sdk/*.tar.gz
+            ${{ runner.temp }}/projection-sdk/sdk-release.json
+            ${{ runner.temp }}/projection-sdk/sdk-files.json
+      - name: Publish immutable qualified Linux Projection SDK and read back tag/assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -B release/publish-projection-sdk.py --directory "$RUNNER_TEMP/projection-sdk"

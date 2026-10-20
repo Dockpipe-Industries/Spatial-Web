@@ -1,0 +1,10 @@
+name: build
+description: Build and install the independent Spatial-Web ordinary browser SDK
+docker_preflight: false
+steps:
+  - id: sdk
+    kind: host
+    cwd: artifacts
+    scopes:
+      source: repo
+    run: assets/run.sh
